@@ -28,5 +28,20 @@
 </main>
 {{ partial "authorbox.html" . }}
 {{ partial "pager.html" . }}
+{{if or (.Params.reddit) (.Params.tweet)}}
+<h3>Leave a comment on Reddit or reply on Twitter!</h3>
+{{if .Params.reddit}}
+<blockquote class="reddit-card">
+	<a href="{{ .Params.reddit }}">
+		r/geekosaur Lounge</a>
+	from <a href="http://www.reddit.com/r/geekosaur">r/geekosaur</a></blockquote>
+<script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+{{ end }}
+{{if .Params.tweet}}
+{{- $url := printf "https://api.twitter.com/1/statuses/oembed.json?id=%v&dnt=%t" (.Params.tweet) true -}}
+{{- $json := getJSON $url -}}
+{{ $json.html | safeHTML }}
+{{ end }}
+{{ end }}
 {{ partial "comments.html" . }}
 {{ end }}
