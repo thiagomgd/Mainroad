@@ -25,3 +25,96 @@ span.spoiler-text {
 span.spoiler-text.spoiler-show {
 	background-color: white;
 }
+
+article figure {
+	text-align: center;
+}
+
+details {
+	margin-bottom: 0.75em;
+}
+
+img.blurred {
+	filter: blur(15px);
+  -webkit-filter: blur(15px);
+  /* padding: 15px */
+}
+
+figure.vertical > img {
+	max-width: 50%;
+}
+
+li, ol {
+	list-style-position: inside;
+	margin-left: 0.5rem;
+}
+
+#contactform * {box-sizing: border-box;}
+
+#contactform input[type=text], 
+#contactform select,
+#contactform textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#contactform input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#contactform input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.formcontainer {
+  border-radius: 0px 5px;
+  /* background-color: #f2f2f2; */
+  padding: 0px 20px;
+}
+
+/* div.synopsis {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+div.synopsis figure.synopsis {
+  max-width: 200px;
+  flex: 1 0 auto;
+}
+
+div.synopsis div.synopsis-text {
+  margin: 0 10px;
+  flex: 2 1 auto;
+} */
+
+div.synopsis {
+  display: block;
+  overflow: auto;
+  background-color: #f5f5f5;
+}
+
+div.synopsis figure.synopsis {
+  max-width: 175px;
+  float: left;
+  margin: 10px 10px 5px 10px;
+}
+
+div.synopsis div.synopsis-text {
+  margin: 10px 10px 10px 10px;
+}
+
+div.synopsis div.synopsis-text p:last-of-type {
+  margin-bottom: 0;
+}

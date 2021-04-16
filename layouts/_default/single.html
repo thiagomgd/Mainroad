@@ -15,10 +15,42 @@
 			<img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}">
 		</figure>
 		{{- end }}
-		{{- partial "post_toc.html" . -}}
+		<!-- {{- partial "post_toc.html" . -}} -->
 		<div class="content post__content clearfix">
 			{{ .Content }}
 		</div>
+
+		<!-- https://npf.io/2014/08/making-it-a-series/ -->
+		{{ if .Params.series }}
+
+		{{ $name := index .Params.series 0 }}
+		<hr />
+		<div>
+			<p>This is a post in the <b>{{$name}}</b> series.
+				<!-- <br /> -->
+				<!-- Other posts in this series: -->
+			</p>
+
+			{{ $name := $name | urlize }}
+			{{ $series := index .Site.Taxonomies.series $name }}
+			<ol class="series">
+				{{ range $series.Pages.Reverse }}
+				<!-- <li>{{.Date.Format "Jan 02, 2006"}} -
+				<a href="{{.Permalink}}">{{.LinkTitle}}</a>
+			</li> -->
+				<li>
+					{{ if eq .Permalink $.Page.Permalink}}
+					<b>{{ .Params.title }}</b>
+					{{ else }}
+					<a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+					{{ end }}
+				</li>
+				{{end}}
+			</ol>
+		</div>
+		{{end}}
+
+
 		{{- if .Params.tags }}
 		<footer class="post__footer">
 			{{ partial "post_tags.html" . }}
@@ -28,20 +60,52 @@
 </main>
 {{ partial "authorbox.html" . }}
 {{ partial "pager.html" . }}
-{{if or (.Params.reddit) (.Params.tweet)}}
-<h3>Leave a comment on Reddit or reply on Twitter!</h3>
+<h3>You can comment by replying on Twitter, Reddit, or using the contact form below!</h3>
+<hr>
+{{if .Params.tweet}}
+<a href="https://twitter.com/FalconSensei/status/{{ .Params.tweet }}">Click here to join the discussion on Twitter!</a> <br>
+{{ end }}
 {{if .Params.reddit}}
+<a href="{{ .Params.reddit }}">Click here to join the discussion on Reddit!</a>
+{{ end }} 
+<hr>
+<div class="formcontainer">
+	<form id="contactform" action="https://api.staticforms.xyz/submit" method="post">
+		<!-- Replace with accesKey sent to your email -->
+
+		<input type="hidden" name="accessKey" value="b7d2d75e-4db9-4768-ab19-68ea57cae4d5"> <!-- Required -->
+		<label for="fname">Name</label>
+		<input type="text" id="fname" name="name"> <!-- Optional -->
+		<label for="fsubject">Subject</label>
+		<input type="text" id="fsubject" name="subject" value="{{ .Title }}"> <!-- Optional -->
+		<label for="femail">Email</label>
+		<input type="text" id="femail" name="email"> <!-- Optional -->
+		<label for="fmessage">Message</label>
+		<textarea id="fmessage" name="message"></textarea> <!-- Optional -->
+		<!-- Specify @ as reply to value if you want it to be customers email -->
+		<input type="hidden" name="replyTo" value="@"> <!-- Optional -->
+		<input type="text" name="honeypot" style="display: none;"> <!-- Optional -->
+		<input type="hidden" name="redirectTo" value="https://geekosaur.com">
+		<input type="submit" value="Submit" />
+	</form>
+</div>
+<br>
+<hr>
+<!-- {{if or (.Params.reddit) (.Params.tweet)}} -->
+<!-- {{if .Params.reddit}}
 <blockquote class="reddit-card">
 	<a href="{{ .Params.reddit }}">
 		r/geekosaur Lounge</a>
-	from <a href="http://www.reddit.com/r/geekosaur">r/geekosaur</a></blockquote>
+	from <a href="http://www.reddit.com/r/geekosaur">r/geekosaur</a>
+</blockquote>
 <script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
-{{ end }}
-{{if .Params.tweet}}
+
+{{ end }}  -->
+<!-- {{if .Params.tweet}}
 {{- $url := printf "https://api.twitter.com/1/statuses/oembed.json?id=%v&dnt=%t" (.Params.tweet) true -}}
 {{- $json := getJSON $url -}}
 {{ $json.html | safeHTML }}
-{{ end }}
-{{ end }}
-{{ partial "comments.html" . }}
+{{ end }} -->
+<!-- {{ end }} -->
+<!-- {{ partial "comments.html" . }} -->
 {{ end }}
