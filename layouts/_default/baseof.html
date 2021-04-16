@@ -38,6 +38,7 @@
 	<link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}">
 	{{- if not .Site.IsServer }}
 		<script data-goatcounter="https://geekosaur.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+		<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0282bdd3b68748aba686aabfce19dc6c"}'></script><!-- End Cloudflare Web Analytics -->
 		{{- if hasPrefix .Site.GoogleAnalytics "G-" }}
 		{{ template "_internal/google_analytics.html" . }}
 		{{- else }}
