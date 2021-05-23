@@ -44,6 +44,10 @@ figure.vertical > img {
 	max-width: 50%;
 }
 
+figure.medium > img {
+	max-width: 75%;
+}
+
 li, ol {
 	list-style-position: inside;
 	margin-left: 0.5rem;
